@@ -1,0 +1,55 @@
+<div class="chats-content">
+  <div style="margin-bottom: 20px">
+    <h4>All Chats</h4>
+  </div>
+  <div style="margin-bottom: 16px">
+    <form #chatForm="ngForm" (ngSubmit)="onSubmit(chatForm)">
+      <div style="display: flex; flex-direction: column; margin-bottom: 16px">
+        <label for="author">Author:</label>
+        <input
+          type="text"
+          id="author"
+          name="author"
+          ngModel
+          required
+          #name="ngModel"
+        />
+        <p style="margin-top: 10px" *ngIf="!name.valid && name.touched">
+          Please enter a valid name
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; margin-bottom: 16px">
+        <label for="chatText">Chat Text:</label>
+        <input
+          type="text"
+          id="chatText"
+          name="chatText"
+          ngModel
+          required
+          #text="ngModel"
+        />
+        <p style="margin-top: 10px" *ngIf="!text.valid && text.touched">
+          Please enter a valid text
+        </p>
+      </div>
+      <div style="display: flex; flex-direction: column; margin-bottom: 16px">
+        <label for="chatText">Gender:</label>
+        <select
+          type="select"
+          id="gender"
+          name="gender"
+          ngModel
+          required
+          #gender="ngModel"
+          [ngModel]="defaultGender"
+        >
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="gender">Divers</option>
+        </select>
+      </div>
+      <button type="submit" [disabled]="!chatForm.valid">Add Chat</button>
+    </form>
+  </div>
+  <app-chatmessage></app-chatmessage>
+</div>

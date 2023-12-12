@@ -1,0 +1,17 @@
+@import "../../styles.scss";
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h2 {
+    color: $text-light;
+  }
+}
+
+.active {
+  background-color: $secondary-color;
+  color: $text-dark;
+  padding: 4px;
+  border-radius: 4px;
+}

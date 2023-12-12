@@ -1,0 +1,26 @@
+$primary-color: #0087ad;
+$secondary-color: #ececec;
+$accent-color: #b6cbad;
+$error-color: #e94545;
+$success-color: #b0c24a;
+$warning-color: #ff9505;
+$disabled-color: #c0c4cf;
+$text-dark: #1d2125;
+$text-light: #fcfcfb;
+
+* {
+  font-family: "Lato", sans-serif;
+  margin: 0;
+  box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: $text-light;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 40px;
+}

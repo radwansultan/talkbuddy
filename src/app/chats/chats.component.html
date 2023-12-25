@@ -1,8 +1,7 @@
 <div class="chats-content">
-  <div style="margin-bottom: 20px">
-    <h4>All Chats</h4>
-  </div>
-  <div style="margin-bottom: 16px">
+  <div class="success" *ngIf="chatmessageAdded">chat added</div>
+
+  <div style="margin-bottom: 16px; margin-top: 16px">
     <form #chatForm="ngForm" (ngSubmit)="onSubmit(chatForm)">
       <div style="display: flex; flex-direction: column; margin-bottom: 16px">
         <label for="author">Author:</label>
@@ -32,24 +31,13 @@
           Please enter a valid text
         </p>
       </div>
-      <div style="display: flex; flex-direction: column; margin-bottom: 16px">
-        <label for="chatText">Gender:</label>
-        <select
-          type="select"
-          id="gender"
-          name="gender"
-          ngModel
-          required
-          #gender="ngModel"
-          [ngModel]="defaultGender"
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="gender">Divers</option>
-        </select>
-      </div>
       <button type="submit" [disabled]="!chatForm.valid">Add Chat</button>
     </form>
   </div>
-  <app-chatmessage></app-chatmessage>
+  <div style="margin-bottom: 20px; margin-top: 20px">
+    <h4>All Chats</h4>
+  </div>
+  <p *ngIf="isLoadingChatMessages">Loading...</p>
+  <app-chatmessage [chats]="chatMessages"></app-chatmessage>
+  <p *ngIf="chatMessages.length < 1 && !isLoadingChatMessages">No chats</p>
 </div>

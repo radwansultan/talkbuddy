@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ChatsService } from './services/chats.service';
+import { ChatMessage, ChatsService } from './services/chats.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,11 +8,33 @@ import { NgForm } from '@angular/forms';
   styleUrl: './chats.component.scss',
 })
 export class ChatsComponent {
-  defaultGender = 'male';
+  chatMessages: ChatMessage[] = [];
+  chatmessageAdded: boolean = false;
+  isLoadingChatMessages: boolean = false;
+  constructor(private chatsService: ChatsService) {}
 
-  constructor(private chatsSercive: ChatsService) {}
+  ngOnInit() {
+    this.getChatMessages();
+    this.checkAddedMessages();
+  }
 
-  ngOnInit() {}
+  getChatMessages() {
+    this.isLoadingChatMessages = true;
+    this.chatsService.getChats().subscribe((chatMessages: ChatMessage[]) => {
+      this.chatMessages = chatMessages;
+      this.isLoadingChatMessages = false;
+    });
+  }
+
+  checkAddedMessages() {
+    this.chatsService.chatAdded$.subscribe((added) => {
+      this.chatmessageAdded = added;
+      this.getChatMessages();
+      setTimeout(() => {
+        this.chatmessageAdded = false;
+      }, 2000);
+    });
+  }
 
   onSubmit(form: NgForm) {
     if (form.valid) {
@@ -21,7 +43,7 @@ export class ChatsComponent {
         author: form.value.author,
         chatText: form.value.chatText,
       };
-      this.chatsSercive.addChat(chatData);
+      this.chatsService.addChat(chatData);
       form.resetForm();
     }
   }

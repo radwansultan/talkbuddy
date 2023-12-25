@@ -1,3 +1,5 @@
+@import "../../styles.scss";
+
 :host {
   display: flex;
   flex-grow: 1;
@@ -11,7 +13,7 @@
 }
 
 input.ng-invalid.ng-touched {
-  outline-color: rgb(255, 0, 0);
+  outline-color: $error-color;
 }
 
 input {
@@ -22,18 +24,18 @@ input {
   margin-top: 10px;
 }
 
-select {
-  border: none;
-  outline: 1px solid black;
+.success {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  bottom: 112px;
+  left: 40px;
+  right: 40px;
+  background-color: $success-color;
+  color: white;
+  font-weight: bold;
   border-radius: 4px;
-  margin-top: 10px;
-  padding: 10px;
-}
-
-option {
-  background-color: lightgray;
-}
-
-#gender * {
-  padding: 10px;
 }

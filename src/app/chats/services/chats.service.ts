@@ -1,37 +1,59 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
+
+export interface ChatMessage {
+  chatText: string;
+  author: string;
+  chatId: number;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChatsService {
-  private chats: {
-    chatId: number;
-    author: string;
-    chatText: string;
-  }[] = [];
-  constructor() {}
+  private chatAddedSubject = new Subject<boolean>();
+  chatAdded$ = this.chatAddedSubject.asObservable();
 
-  getChats() {
-    return this.chats;
+  constructor(private http: HttpClient) {}
+
+  getChats(): Observable<ChatMessage[]> {
+    return this.http
+      .get<{ [key: string]: ChatMessage }>(
+        'https://talkbuddy-262cb-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json'
+      )
+      .pipe(
+        map((responseData) => {
+          const chatmessagesArray = [];
+          for (const key in responseData) {
+            if (responseData.hasOwnProperty(key)) {
+              chatmessagesArray.push({ ...responseData[key] });
+            }
+          }
+          return chatmessagesArray;
+        })
+      );
   }
 
-  addChat(chat: { chatId: number; author: string; chatText: string }) {
-    this.chats.push(chat);
+  addChat(chat: ChatMessage) {
+    this.http
+      .post<{ chat: ChatMessage }>(
+        'https://talkbuddy-262cb-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json',
+        chat
+      )
+      .subscribe((responseData) => {
+        if (responseData) {
+          this.chatAddedSubject.next(true);
+        }
+      });
   }
 
   deleteChat(chatId: number) {
-    const index = this.chats.findIndex((chat) => chat.chatId === chatId);
-    if (index !== -1) {
-      this.chats.splice(index, 1);
-    }
+    // todo
   }
 
   editChatText(chatId: number, newChatText: string) {
-    const chats = this.getChats();
-    const chatIndex = chats.findIndex((chat) => chat.chatId === chatId);
-
-    if (chatIndex !== -1) {
-      chats[chatIndex].chatText = newChatText;
-    }
+    //todo
   }
 }

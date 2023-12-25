@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ChatsService } from '../chats/services/chats.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-chatmessage',
@@ -8,7 +7,7 @@ import { NgForm } from '@angular/forms';
   styleUrl: './chatmessage.component.scss',
 })
 export class ChatmessageComponent {
-  chats: {
+  @Input() chats: {
     chatId: number;
     author: string;
     chatText: string;
@@ -16,9 +15,7 @@ export class ChatmessageComponent {
 
   constructor(private chatsSercive: ChatsService) {}
 
-  ngOnInit() {
-    this.chats = this.chatsSercive.getChats();
-  }
+  ngOnInit() {}
 
   onDelete(chatId: number) {
     this.chatsSercive.deleteChat(chatId);

@@ -2,12 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
-
-export interface ChatMessage {
-  chatText: string;
-  author: string;
-  chatId: number;
-}
+import { ChatMessage } from '../../models/chatMessage.model';
 
 @Injectable({
   providedIn: 'root',
@@ -21,14 +16,14 @@ export class ChatsService {
   getChats(): Observable<ChatMessage[]> {
     return this.http
       .get<{ [key: string]: ChatMessage }>(
-        'https://talkbuddy-262cb-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json'
+        'https://simplecrm2-963cd-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json'
       )
       .pipe(
         map((responseData) => {
-          const chatmessagesArray = [];
+          const chatmessagesArray: any = [];
           for (const key in responseData) {
             if (responseData.hasOwnProperty(key)) {
-              chatmessagesArray.push({ ...responseData[key] });
+              chatmessagesArray.push({ ...responseData[key], chatId: key });
             }
           }
           return chatmessagesArray;
@@ -36,10 +31,10 @@ export class ChatsService {
       );
   }
 
-  addChat(chat: ChatMessage) {
+  addChat(chat: { author: string; chatText: string }) {
     this.http
       .post<{ chat: ChatMessage }>(
-        'https://talkbuddy-262cb-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json',
+        'https://simplecrm2-963cd-default-rtdb.europe-west1.firebasedatabase.app/chatmessages.json',
         chat
       )
       .subscribe((responseData) => {
@@ -49,11 +44,18 @@ export class ChatsService {
       });
   }
 
-  deleteChat(chatId: number) {
-    // todo
+  deleteChat(chatId: string) {
+    return this.http.delete(
+      `https://simplecrm2-963cd-default-rtdb.europe-west1.firebasedatabase.app/chatmessages/${chatId}.json`
+    );
   }
 
-  editChatText(chatId: number, newChatText: string) {
-    //todo
+  editChatText(chatId: string, newChatText: string) {
+    const updatedChat = { chatText: newChatText };
+
+    return this.http.patch(
+      `https://simplecrm2-963cd-default-rtdb.europe-west1.firebasedatabase.app/chatmessages/${chatId}.json`,
+      updatedChat
+    );
   }
 }

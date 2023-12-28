@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { ChatMessage, ChatsService } from './services/chats.service';
+import { ChatsService } from './services/chats.service';
 import { NgForm } from '@angular/forms';
+import { ChatMessage } from '../models/chatMessage.model';
 
 @Component({
   selector: 'app-chats',
@@ -39,16 +40,11 @@ export class ChatsComponent {
   onSubmit(form: NgForm) {
     if (form.valid) {
       const chatData = {
-        chatId: this.generateChatId(),
         author: form.value.author,
         chatText: form.value.chatText,
       };
       this.chatsService.addChat(chatData);
       form.resetForm();
     }
-  }
-
-  private generateChatId(): number {
-    return Math.floor(Math.random() * 1000);
   }
 }

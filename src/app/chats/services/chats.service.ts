@@ -10,7 +10,10 @@ import { SubjectsService } from '../../subjects/subjects.service';
 export class ChatsService {
   chatAdded$ = this.subjectsService.getSuccessSubject().asObservable();
   chatDeleted$ = this.subjectsService.getErrorSubject().asObservable();
+<<<<<<< HEAD
   chatEdited$ = this.subjectsService.getInfoSubject().asObservable();
+=======
+>>>>>>> 5ef820351ad6303f61ac8924843b2f97e2e6726f
 
   constructor(
     private http: HttpClient,
@@ -56,7 +59,11 @@ export class ChatsService {
   }
 
   editChatText(chatId: string, newChatText: string) {
+<<<<<<< HEAD
     this.subjectsService.getInfoSubject().next(true);
+=======
+    this.subjectsService.getSuccessSubject().next(true);
+>>>>>>> 5ef820351ad6303f61ac8924843b2f97e2e6726f
     const updatedChat = { chatText: newChatText };
 
     return this.http.patch(

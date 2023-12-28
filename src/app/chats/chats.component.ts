@@ -12,7 +12,10 @@ export class ChatsComponent {
   chatMessages: ChatMessage[] = [];
   chatMessageAdded: boolean = false;
   chatMessagedeleted: boolean = false;
+<<<<<<< HEAD
   chatMesageEdited: boolean = false;
+=======
+>>>>>>> 5ef820351ad6303f61ac8924843b2f97e2e6726f
   isLoadingChatMessages: boolean = false;
   constructor(private chatsService: ChatsService) {}
 
@@ -21,7 +24,10 @@ export class ChatsComponent {
     this.getChatMessages();
     this.checkAddedMessages();
     this.checkdeletedMessages();
+<<<<<<< HEAD
     this.checkEditeddMessages();
+=======
+>>>>>>> 5ef820351ad6303f61ac8924843b2f97e2e6726f
   }
 
   getChatMessages() {
@@ -54,6 +60,7 @@ export class ChatsComponent {
       console.log(deleted);
       setTimeout(() => {
         this.chatMessagedeleted = false;
+<<<<<<< HEAD
       }, 2000);
     });
   }
@@ -64,6 +71,8 @@ export class ChatsComponent {
       console.log(edited);
       setTimeout(() => {
         this.chatMesageEdited = false;
+=======
+>>>>>>> 5ef820351ad6303f61ac8924843b2f97e2e6726f
       }, 2000);
     });
   }

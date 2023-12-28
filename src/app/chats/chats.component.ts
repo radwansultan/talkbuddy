@@ -10,13 +10,18 @@ import { ChatMessage } from '../models/chatMessage.model';
 })
 export class ChatsComponent {
   chatMessages: ChatMessage[] = [];
-  chatmessageAdded: boolean = false;
+  chatMessageAdded: boolean = false;
+  chatMessagedeleted: boolean = false;
+  chatMesageEdited: boolean = false;
   isLoadingChatMessages: boolean = false;
   constructor(private chatsService: ChatsService) {}
 
   ngOnInit() {
+    console.log('run');
     this.getChatMessages();
     this.checkAddedMessages();
+    this.checkdeletedMessages();
+    this.checkEditeddMessages();
   }
 
   getChatMessages() {
@@ -35,10 +40,30 @@ export class ChatsComponent {
 
   checkAddedMessages() {
     this.chatsService.chatAdded$.subscribe((added) => {
-      this.chatmessageAdded = added;
+      this.chatMessageAdded = added;
       this.getChatMessages();
       setTimeout(() => {
-        this.chatmessageAdded = false;
+        this.chatMessageAdded = false;
+      }, 2000);
+    });
+  }
+
+  checkdeletedMessages() {
+    this.chatsService.chatDeleted$.subscribe((deleted) => {
+      this.chatMessagedeleted = deleted;
+      console.log(deleted);
+      setTimeout(() => {
+        this.chatMessagedeleted = false;
+      }, 2000);
+    });
+  }
+
+  checkEditeddMessages() {
+    this.chatsService.chatEdited$.subscribe((edited) => {
+      this.chatMesageEdited = edited;
+      console.log(edited);
+      setTimeout(() => {
+        this.chatMesageEdited = false;
       }, 2000);
     });
   }

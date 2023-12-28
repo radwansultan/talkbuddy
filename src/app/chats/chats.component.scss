@@ -39,3 +39,35 @@ input {
   font-weight: bold;
   border-radius: 4px;
 }
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  bottom: 112px;
+  left: 40px;
+  right: 40px;
+  background-color: $error-color;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  bottom: 112px;
+  left: 40px;
+  right: 40px;
+  background-color: $primary-color;
+  color: white;
+  font-weight: bold;
+  border-radius: 4px;
+}

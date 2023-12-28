@@ -1,5 +1,7 @@
 <div class="chats-content">
-  <div class="success" *ngIf="chatmessageAdded">chat added</div>
+  <div class="success" *ngIf="chatMessageAdded">Chat added</div>
+  <div class="info" *ngIf="chatMesageEdited">Chat edited</div>
+  <div class="error" *ngIf="chatMessagedeleted">chat deleted</div>
 
   <div style="margin-bottom: 16px; margin-top: 16px">
     <form #chatForm="ngForm" (ngSubmit)="onSubmit(chatForm)">

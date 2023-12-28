@@ -6,14 +6,24 @@
     </div>
     <p>{{ chat.chatText }}</p>
     <div style="display: flex; justify-content: flex-end; width: 100%">
+      <input
+        style="margin-right: 8px; flex-grow: 1"
+        type="text"
+        [(ngModel)]="chat.chatText"
+      />
       <button
-        style="margin-right: 16px"
+        class="btn-primary"
         (click)="onEditChat(chat.chatId, chat.chatText)"
       >
         Edit
       </button>
-      <input type="text" [(ngModel)]="chat.chatText" />
-      <button (click)="onDelete(chat.chatId)">Delete</button>
+      <button
+        style="margin-left: 8px"
+        class="btn-danger"
+        (click)="onDelete(chat.chatId)"
+      >
+        Delete
+      </button>
     </div>
   </div>
   }

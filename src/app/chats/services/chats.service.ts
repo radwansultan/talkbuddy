@@ -1,17 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ChatMessage } from '../../models/chatMessage.model';
-
+import { SubjectsService } from '../../subjects/subjects.service';
 @Injectable({
   providedIn: 'root',
 })
 export class ChatsService {
-  private chatAddedSubject = new Subject<boolean>();
-  chatAdded$ = this.chatAddedSubject.asObservable();
+  chatAdded$ = this.subjectsService.getSuccessSubject().asObservable();
+  chatDeleted$ = this.subjectsService.getErrorSubject().asObservable();
+  chatEdited$ = this.subjectsService.getInfoSubject().asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private subjectsService: SubjectsService
+  ) {}
 
   getChats(): Observable<ChatMessage[]> {
     return this.http
@@ -39,18 +43,20 @@ export class ChatsService {
       )
       .subscribe((responseData) => {
         if (responseData) {
-          this.chatAddedSubject.next(true);
+          this.subjectsService.getSuccessSubject().next(true);
         }
       });
   }
 
   deleteChat(chatId: string) {
+    this.subjectsService.getErrorSubject().next(true);
     return this.http.delete(
       `https://simplecrm2-963cd-default-rtdb.europe-west1.firebasedatabase.app/chatmessages/${chatId}.json`
     );
   }
 
   editChatText(chatId: string, newChatText: string) {
+    this.subjectsService.getInfoSubject().next(true);
     const updatedChat = { chatText: newChatText };
 
     return this.http.patch(

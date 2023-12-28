@@ -21,9 +21,15 @@ export class ChatsComponent {
 
   getChatMessages() {
     this.isLoadingChatMessages = true;
-    this.chatsService.getChats().subscribe((chatMessages: ChatMessage[]) => {
-      this.chatMessages = chatMessages;
-      this.isLoadingChatMessages = false;
+    this.chatsService.getChats().subscribe({
+      next: (chatMessages: ChatMessage[]) => {
+        this.chatMessages = chatMessages;
+        this.isLoadingChatMessages = false;
+      },
+      error: (error) => {
+        console.error('Failed to retrieve chat messages:', error);
+        this.isLoadingChatMessages = false;
+      },
     });
   }
 

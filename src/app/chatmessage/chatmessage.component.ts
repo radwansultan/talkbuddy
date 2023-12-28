@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ChatsService } from '../chats/services/chats.service';
 import { ChatMessage } from '../models/chatMessage.model';
-import { stringify } from 'query-string/base';
 
 @Component({
   selector: 'app-chatmessage',
@@ -13,9 +12,7 @@ export class ChatmessageComponent {
 
   constructor(private chatsSercive: ChatsService) {}
 
-  ngOnInit() {
-    console.log('run');
-  }
+  ngOnInit() {}
 
   onDelete(chatId: string) {
     this.chatsSercive.deleteChat(chatId).subscribe({

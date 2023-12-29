@@ -11,19 +11,18 @@
         type="text"
         [(ngModel)]="chat.chatText"
       />
-      <button
-        class="btn-primary"
+      <app-button
+        variant="default"
+        label="Edit"
         (click)="onEditChat(chat.chatId, chat.chatText)"
       >
-        Edit
-      </button>
-      <button
+      </app-button>
+      <app-button
         style="margin-left: 8px"
-        class="btn-danger"
+        variant="danger"
+        label="Delete"
         (click)="onDelete(chat.chatId)"
-      >
-        Delete
-      </button>
+      ></app-button>
     </div>
   </div>
   }

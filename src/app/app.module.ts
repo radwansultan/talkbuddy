@@ -12,6 +12,7 @@ import { FooterComponent } from './footer/footer.component';
 import { ChatsComponent } from './chats/chats.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChatmessageComponent } from './chatmessage/chatmessage.component';
+import { ButtonComponent } from './components/UI/button/button.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ChatmessageComponent } from './chatmessage/chatmessage.component';
     ChatsComponent,
     NavbarComponent,
     ChatmessageComponent,
+    ButtonComponent,
   ],
   imports: [
     BrowserModule,

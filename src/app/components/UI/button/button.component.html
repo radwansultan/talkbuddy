@@ -1,0 +1,9 @@
+<button
+  [ngClass]="{
+    'default-btn': variant === 'default',
+    'secondary-btn': variant === 'secondary',
+    'danger-btn': variant === 'danger'
+  }"
+>
+  {{ label }}
+</button>

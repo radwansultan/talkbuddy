@@ -17,7 +17,6 @@ export class ChatsComponent {
   constructor(private chatsService: ChatsService) {}
 
   ngOnInit() {
-    console.log('run');
     this.getChatMessages();
     this.checkAddedMessages();
     this.checkdeletedMessages();
@@ -51,7 +50,6 @@ export class ChatsComponent {
   checkdeletedMessages() {
     this.chatsService.chatDeleted$.subscribe((deleted) => {
       this.chatMessagedeleted = deleted;
-      console.log(deleted);
       setTimeout(() => {
         this.chatMessagedeleted = false;
       }, 2000);
@@ -61,7 +59,6 @@ export class ChatsComponent {
   checkEditeddMessages() {
     this.chatsService.chatEdited$.subscribe((edited) => {
       this.chatMesageEdited = edited;
-      console.log(edited);
       setTimeout(() => {
         this.chatMesageEdited = false;
       }, 2000);

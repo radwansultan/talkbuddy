@@ -13,6 +13,8 @@ import { ChatsComponent } from './chats/chats.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ChatmessageComponent } from './chatmessage/chatmessage.component';
 import { ButtonComponent } from './components/UI/button/button.component';
+import { OpenModalDirective } from './directives/open-modal.directive';
+import { ModalService } from './directives/modal.sercive';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { ButtonComponent } from './components/UI/button/button.component';
     NavbarComponent,
     ChatmessageComponent,
     ButtonComponent,
+    OpenModalDirective,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,7 @@ import { ButtonComponent } from './components/UI/button/button.component';
     HttpClientModule,
     StoreModule.forRoot({}, {}),
   ],
-  providers: [],
+  providers: [ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

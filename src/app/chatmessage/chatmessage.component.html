@@ -6,15 +6,11 @@
     </div>
     <p>{{ chat.chatText }}</p>
     <div style="display: flex; justify-content: flex-end; width: 100%">
-      <input
-        style="margin-right: 8px; flex-grow: 1"
-        type="text"
-        [(ngModel)]="chat.chatText"
-      />
       <app-button
+        appOpenModal
         variant="default"
         label="Edit"
-        (click)="onEditChat(chat.chatId, chat.chatText)"
+        (click)="getChatId(chat.chatId)"
       >
       </app-button>
       <app-button
@@ -26,4 +22,29 @@
     </div>
   </div>
   }
+
+  <div *ngIf="isModalOpen" class="modal">
+    <div class="modal-content">
+      <div style="display: flex; flex-direction: column; gap: 20px">
+        <h4>Edit Message</h4>
+        <textarea
+          placeholder="Enter message"
+          style="min-height: 200px; padding: 10px"
+          [(ngModel)]="newChatText"
+        ></textarea>
+        <div style="display: flex; justify-content: space-between">
+          <app-button
+            label="Save"
+            variant="default"
+            (click)="onEditChat(selectedChatId, newChatText)"
+          ></app-button>
+          <app-button
+            label="Close"
+            variant="danger"
+            (click)="onClose()"
+          ></app-button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

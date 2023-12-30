@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ChatsService } from '../chats/services/chats.service';
 import { ChatMessage } from '../models/chatMessage.model';
+import { ModalService } from '../directives/modal.sercive';
 
 @Component({
   selector: 'app-chatmessage',
@@ -9,10 +10,24 @@ import { ChatMessage } from '../models/chatMessage.model';
 })
 export class ChatmessageComponent {
   @Input() chats: ChatMessage[] = [];
+  selectedChatId!: string;
+  newChatText!: string;
 
-  constructor(private chatsSercive: ChatsService) {}
+  constructor(
+    private chatsSercive: ChatsService,
+    public modalService: ModalService
+  ) {}
+
+  get isModalOpen(): boolean {
+    return this.modalService.isOpen;
+  }
 
   ngOnInit() {}
+
+  getChatId(chatId: string) {
+    this.selectedChatId = chatId;
+    this.newChatText = '';
+  }
 
   onDelete(chatId: string) {
     this.chatsSercive.deleteChat(chatId).subscribe({
@@ -29,7 +44,7 @@ export class ChatmessageComponent {
     this.chatsSercive.editChatText(chatId, newChatText).subscribe({
       next: () => {
         const chatToUpdateIndex = this.chats.findIndex(
-          (chat) => chat.chatId === chatId
+          (chat) => chat.chatId === this.selectedChatId
         );
         if (chatToUpdateIndex !== -1) {
           this.chats[chatToUpdateIndex].chatText = newChatText;
@@ -38,6 +53,13 @@ export class ChatmessageComponent {
       error: (error) => {
         console.error('Failed to update chat message:', error);
       },
+      complete: () => {
+        this.modalService.isOpen = false;
+      },
     });
+  }
+
+  onClose() {
+    this.modalService.closeModal();
   }
 }

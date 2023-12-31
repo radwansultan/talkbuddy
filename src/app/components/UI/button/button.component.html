@@ -1,8 +1,10 @@
 <button
+  [disabled]="disabled"
   [ngClass]="{
     'default-btn': variant === 'default',
     'secondary-btn': variant === 'secondary',
-    'danger-btn': variant === 'danger'
+    'danger-btn': variant === 'danger',
+    'disabled-btn': disabled === true
   }"
 >
   {{ label }}

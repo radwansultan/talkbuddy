@@ -34,6 +34,7 @@
         ></textarea>
         <div style="display: flex; justify-content: space-between">
           <app-button
+            [disabled]="isChatTextEmpty()"
             label="Save"
             variant="default"
             (click)="onEditChat(selectedChatId, newChatText)"

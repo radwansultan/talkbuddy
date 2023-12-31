@@ -62,4 +62,8 @@ export class ChatmessageComponent {
   onClose() {
     this.modalService.closeModal();
   }
+
+  isChatTextEmpty(): boolean {
+    return this.newChatText.trim().length === 0;
+  }
 }

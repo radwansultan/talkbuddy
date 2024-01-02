@@ -2,7 +2,7 @@
   @for(chat of chats; track chat.chatId ){
   <div class="chat-message-container">
     <div class="name-container">
-      {{ chat.author }}
+      {{ chat.author | uppercase }}
     </div>
     <p>{{ chat.chatText }}</p>
     <div style="display: flex; justify-content: flex-end; width: 100%">

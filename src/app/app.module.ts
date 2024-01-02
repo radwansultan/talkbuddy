@@ -15,6 +15,7 @@ import { ChatmessageComponent } from './chatmessage/chatmessage.component';
 import { ButtonComponent } from './components/UI/button/button.component';
 import { OpenModalDirective } from './directives/open-modal.directive';
 import { ModalService } from './directives/modal.sercive';
+import { AuthComponent } from './components/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ModalService } from './directives/modal.sercive';
     ChatmessageComponent,
     ButtonComponent,
     OpenModalDirective,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
